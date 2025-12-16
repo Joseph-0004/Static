@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bientôt disponible !</title>
+    <!-- Police moderne -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        
+        .container {
+            max-width: 800px;
+            padding: 40px 20px;
+        }
+        
+        h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        header p {
+            font-size: 1.4rem;
+            margin-bottom: 60px;
+            opacity: 0.9;
+        }
+        
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 80px;
+            flex-wrap: wrap;
+        }
+        
+        .time {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px 30px;
+            min-width: 120px;
+        }
+        
+        .time span {
+            display: block;
+            font-size: 3.5rem;
+            font-weight: 700;
+        }
+        
+        .time label {
+            font-size: 1rem;
+            opacity: 0.8;
+            margin-top: 10px;
+            display: block;
+        }
+        
+        .subscribe p {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+        }
+        
+        form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+            gap: 10px;
+        }
+        
+        input[type="email"] {
+            flex: 1;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+        }
+        
+        input[type="email"]::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        button {
+            padding: 15px 40px;
+            background: #ee0979;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        
+        button:hover {
+            background: #ff6a00;
+            transform: scale(1.05);
+        }
+        
+        .social {
+            margin-top: 80px;
+        }
+        
+        .social a {
+            color: white;
+            font-size: 2rem;
+            margin: 0 15px;
+            opacity: 0.7;
+            transition: 0.3s;
+        }
+        
+        .social a:hover {
+            opacity: 1;
+            transform: translateY(-5px);
+        }
+        
+        @media (max-width: 768px) {
+            h1 { font-size: 3rem; }
+            header p { font-size: 1.2rem; }
+            .countdown { gap: 15px; }
+            .time { padding: 15px 20px; min-width: 100px; }
+            .time span { font-size: 2.8rem; }
+            form { flex-direction: column; }
+            button { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Bientôt disponible !</h1>
+            <p>Nous travaillons dur pour vous offrir quelque chose d'incroyable.<br>Le lancement arrive très bientôt...</p>
+        </header>
+
+        <!-- Compte à rebours -->
+        <div class="countdown">
+            <div class="time"><span id="days">00</span><label>Jours</label></div>
+            <div class="time"><span id="hours">00</span><label>Heures</label></div>
+            <div class="time"><span id="minutes">00</span><label>Minutes</label></div>
+            <div class="time"><span id="seconds">00</span><label>Secondes</label></div>
+        </div>
+
+        <!-- Formulaire -->
+        <div class="subscribe">
+            <p>Soyez les premiers informés à l'ouverture :</p>
+            <form onsubmit="alert('Merci ! Vous serez averti à l\'ouverture 🚀'); return false;">
+                <input type="email" placeholder="Votre adresse email" required>
+                <button type="submit">M'avertir</button>
+            </form>
+        </div>
+
+        <!-- Réseaux sociaux (remplace les # par tes vrais liens) -->
+        <div class="social">
+            <a href="#" aria-label="Twitter">𝕏</a>
+            <a href="#" aria-label="Instagram">📷</a>
+            <a href="#" aria-label="Facebook">📘</a>
+            <a href="#" aria-label="LinkedIn">💼</a>
+        </div>
+    </div>
+
+    <script>
+        // Date de lancement : 1er janvier 2026 à 00:00:00
+        const launchDate = new Date("2026-01-01T00:00:00").getTime();
+
+        const countdown = setInterval(() => {
+            const now = new Date().getTime();
+            const distance = launchDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = days.toString().padStart(2, "0");
+            document.getElementById("hours").innerText = hours.toString().padStart(2, "0");
+            document.getElementById("minutes").innerText = minutes.toString().padStart(2, "0");
+            document.getElementById("seconds").innerText = seconds.toString().padStart(2, "0");
+
+            if (distance < 0) {
+                clearInterval(countdown);
+                document.querySelector(".countdown").innerHTML = "<h2>C'est lancé ! 🎉</h2>";
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
