@@ -1,0 +1,43 @@
+name: CI - Tests et Build
+
+on:
+  push:
+    branches: [ main, dev ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout du code
+        uses: actions/checkout@v4
+
+      - name: Vérifier la syntaxe HTML
+        uses: actionsdesk/html-validate-action@v1
+        with:
+          files: index.html
+
+      - name: Lint CSS (via stylelint)
+        run: |
+          npm install -g stylelint stylelint-config-standard
+          stylelint "**/*.html" --custom-syntax stylelint-html
+
+      - name: Vérifier les liens morts (linkcheck)
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: '--verbose index.html'
+
+      - name: Build statique (simulé)
+        run: |
+          echo "Build du site statique..."
+          mkdir -p build
+          cp index.html build/
+          echo "Site prêt pour déploiement"
+
+      - name: Upload artefact (build)
+        uses: actions/upload-artifact@v4
+        with:
+          name: site-build
+          path: build/
