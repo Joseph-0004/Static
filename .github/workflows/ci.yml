@@ -14,18 +14,14 @@ jobs:
       - name: Checkout du code
         uses: actions/checkout@v4
 
-      - name: Valider HTML avec HTML5 Validator
+      - name: Valider la syntaxe HTML
         uses: Cyb3r-Jak3/html5validator-action@v7.2.0
         with:
-          root: "."           # Valide tous les .html dans le dossier (ici index.html)
-          log_level: ERROR    # Optionnel : n'affiche que les erreurs
+          root: "."                  # Valide index.html (et tout autre .html)
+          css: true                  # Valide aussi le CSS intégré
+          log_level: ERROR           # N'affiche que les vraies erreurs
 
-      - name: Lint CSS intégré (stylelint directement)
-        run: |
-          npm install -g stylelint stylelint-config-standard
-          npx stylelint "**/*.html" --custom-syntax stylelint-html
-
-      - name: Vérifier les liens morts (lychee)
+      - name: Vérifier les liens morts
         uses: lycheeverse/lychee-action@v2
         with:
           args: '--verbose --no-progress index.html'
